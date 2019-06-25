@@ -31,16 +31,26 @@ const DesktopContainer = (props: DesktopContainerProps) => {
             FamilyLog
           </Menu.Item>
 
-          <Menu.Menu position='right'>
-            <Menu.Item>
-              <Icon name='add user' />
+          <Menu.Item>
+            <Icon name='list alternate' />
+            <Link to='/logs'>
+              Logs
+              </Link>
+          </Menu.Item>
+
+          <Menu.Item>
+            <Icon name='add user' />
+            <Link to='/new-info'>
               Add to log
-            </Menu.Item>
+              </Link>
+          </Menu.Item>
+
+          <Menu.Menu position='right'>
 
             <Menu.Item>
               <Icon name='question' />
               <Link to='/about'>
-                Add to log
+                About
               </Link>
             </Menu.Item>
 
