@@ -36,7 +36,7 @@ const MobileContainer = (props: MobileContainerProps) => {
             </Menu.Item>
         </Sidebar>
 
-        <Sidebar.Pusher style={{ height: '100%' }} dimmed={showSidebar}>
+        <Sidebar.Pusher style={{ height: '100vh' }} dimmed={showSidebar}>
 
           <Menu widths={3} inverted pointing color='blue' size='large' style={{ height: '50px', marginBottom: 0, borderRadius: 0 }}>
             <Menu.Item onClick={() => setShowSidebar(true)} style={{ alignSelf: 'center' }}>
@@ -54,7 +54,9 @@ const MobileContainer = (props: MobileContainerProps) => {
 
           <div
             style={{
-              height: 'calc(100vh - 50px)'
+              height: 'calc(100vh - 50px)',
+              overflowY: 'scroll',
+              overflowX: 'hidden'
             }}>
             {props.children}
           </div>

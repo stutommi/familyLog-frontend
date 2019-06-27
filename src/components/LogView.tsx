@@ -1,11 +1,10 @@
 // Libraries
 import * as _ from 'lodash'
 import * as React from 'react'
-import { useState } from 'react'
+import * as moment from 'moment'
+import { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Grid, Table } from 'semantic-ui-react'
-// Components
-import PersonInfo from './PersonInfo'
 
 interface LogViewProps {
   logs: Array<object>
@@ -14,38 +13,66 @@ interface LogViewProps {
 const LogView = (props: LogViewProps) => {
   const [direction, setDirection] = useState(null)
   const [column, setColumn] = useState(null)
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    if (props.logs) {
+      setData(props.logs)
+    }
+  }, [props.logs])
+
+
 
   const handleSort = (clickedColumn: string) => () => {
-// TÄSTÄ JATKUU
+
+    if (column !== clickedColumn) {
+      setColumn(clickedColumn)
+      setData(_.sortBy(data, [clickedColumn]))
+      setDirection('ascending')
+
+      return
+    }
+
+    setData(data.reverse())
+    setDirection(direction === 'ascending' ? 'descending' : 'ascending')
   }
 
   return (
     <Grid
       style={{ background: 'violet', height: '100%' }}>
-      <Grid.Column style={{ maxWidth: 250 }}>
-        <Table>
+      <Grid.Column >
+        <Table sortable celled fixed>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell
-              sorted={}
-              onClick={handleSort}>
+                sorted={column === 'name' ? direction : null}
+                onClick={handleSort('name')}
+              >
                 Name
               </Table.HeaderCell>
-              <Table.HeaderCell>
-                Age
+              <Table.HeaderCell
+                sorted={column === 'birth' ? direction : null}
+                onClick={handleSort('birth')}
+              >
+                Birth
               </Table.HeaderCell>
-              <Table.HeaderCell>
+              <Table.HeaderCell
+                sorted={column === 'relation' ? direction : null}
+                onClick={handleSort('relation')}
+              >
                 Relation
               </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {_.map(props.logs, (logs: any) => {
-              <Table.Row key={logs.name}>
-                <Table.Cell>{logs.name}</Table.Cell>
-                <Table.Cell>{logs.age}</Table.Cell>
-                <Table.Cell>{logs.relation}</Table.Cell>
-              </Table.Row>
+            {_.map(data, (person: any) => {
+              return (
+                <Table.Row key={person.name}>
+                  <Table.Cell>{person.name} ({moment().diff(person.birth, 'years')} y)</Table.Cell>
+                  <Table.Cell>{moment(person.birth).format('DD.MM.YYYY')}</Table.Cell>
+                  <Table.Cell>{person.relation}</Table.Cell>
+                </Table.Row>
+              )
             })}
           </Table.Body>
         </Table>
