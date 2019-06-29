@@ -9,15 +9,15 @@ import AboutView from './components/AboutView'
 import LogView from './components/LogView'
 import NewInfoForm from './components/NewInfoForm'
 // Redux actions
-import { initializeLogs } from './reducers/logReducer'
+import { thunkInitializeLog } from './thunks'
 
 interface AppProps {
-  initializeLogs: Function
+  thunkInitializeLog: Function
 }
 
 const App = (props: AppProps) => {
   useEffect(() => {
-    initializeLogs()
+    props.thunkInitializeLog()
   }, [])
 
   return (
@@ -33,4 +33,4 @@ const App = (props: AppProps) => {
   )
 }
 
-export default connect(null, {initializeLogs})(App)
+export default connect(null, { thunkInitializeLog })(App)

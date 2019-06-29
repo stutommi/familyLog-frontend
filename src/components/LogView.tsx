@@ -6,22 +6,23 @@ import { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Grid, Table } from 'semantic-ui-react'
 
+import { LogState } from '../store/logs/types'
+import { AppState } from '../store'
+
 interface LogViewProps {
-  logs: Array<object>
+  log: LogState
 }
 
-const LogView = (props: LogViewProps) => {
+const LogView = ({ log }: LogViewProps) => {
+  const [data, setData] = useState<any>(null)
   const [direction, setDirection] = useState(null)
   const [column, setColumn] = useState(null)
-  const [data, setData] = useState([])
 
   useEffect(() => {
-    if (props.logs) {
-      setData(props.logs)
+    if (log.persons) {
+      setData(log.persons)
     }
-  }, [props.logs])
-
-
+  }, [log])
 
   const handleSort = (clickedColumn: string) => () => {
 
@@ -35,6 +36,10 @@ const LogView = (props: LogViewProps) => {
 
     setData(data.reverse())
     setDirection(direction === 'ascending' ? 'descending' : 'ascending')
+  }
+
+  if (data === null ) {
+    return null
   }
 
   return (
@@ -81,9 +86,9 @@ const LogView = (props: LogViewProps) => {
   )
 }
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: AppState) => {
   return {
-    logs: state.logs
+    log: state.log
   }
 }
 

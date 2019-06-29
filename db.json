@@ -1,0 +1,28 @@
+{
+  "persons": [
+    {
+      "name": "Krista Iskala",
+      "birth": "1992-10-18T22:00:00.000Z",
+      "relation": "Girlfriend",
+      "relative": true
+    },
+    {
+      "name": "Matti Tampio",
+      "birth": "1988-03-20T22:00:00.000Z",
+      "relation": "Brother",
+      "relative": true
+    },
+    {
+      "name": "Reijo Tampio",
+      "birth": "1959-12-30T22:00:00.000Z",
+      "relation": "Father",
+      "relative": true
+    },
+    {
+      "name": "Reija Kälkäjä",
+      "birth": "1962-12-25T22:00:00.000Z",
+      "relation": "Mother",
+      "relative": true
+    }
+  ]
+}

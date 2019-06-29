@@ -4,6 +4,9 @@ import { Form, Grid, Segment } from 'semantic-ui-react'
 import * as moment from 'moment'
 // Hooks
 import { useField } from '../hooks/useField'
+// Redux actions
+import { thunkNewPerson } from '../thunks'
+import { connect } from 'net';
 
 moment.updateLocale('en', {
   relativeTime: {
@@ -11,13 +14,27 @@ moment.updateLocale('en', {
   }
 })
 
-const NewInfoForm = () => {
+interface NewInfoFormProps {
+  thunkNewPerson: Function
+}
+
+const NewInfoForm = (props: NewInfoFormProps) => {
   const name = useField('text', 'Name', 'Name')
   const relation = useField('text', 'e.g Cousin...', 'Relation')
   const dateOfBirth = useField('date', 'Date of Birth', 'Date of Birth')
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
+
+    thunkNewPerson(
+      {
+        name: 'Hemuli',
+        birth: new Date('2013'),
+        id: '23412oi',
+        relation: 'Bully',
+        relative: false
+      }
+    )
 
     name.reset()
     dateOfBirth.reset()
@@ -46,4 +63,4 @@ const NewInfoForm = () => {
   )
 }
 
-export default NewInfoForm
+export default connect(null, { thunkNewPerson })(NewInfoForm)
