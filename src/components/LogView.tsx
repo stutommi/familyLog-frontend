@@ -5,9 +5,11 @@ import * as moment from 'moment'
 import { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Grid, Table } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 
-import { LogState } from '../store/logs/types'
-import { AppState } from '../store'
+// Types
+import { LogState, Person } from '../../store/logs/types'
+import { AppState } from '../../store'
 
 interface LogViewProps {
   log: LogState
@@ -28,8 +30,14 @@ const LogView = ({ log }: LogViewProps) => {
 
     if (column !== clickedColumn) {
       setColumn(clickedColumn)
-      setData(_.sortBy(data, [clickedColumn]))
       setDirection('ascending')
+
+      clickedColumn === 'age'
+        ?
+        setData(data.sort((a: Person, b: Person) =>
+          moment(a.birth).unix() - moment(b.birth).unix()))
+        : setData(_.sortBy(data, [clickedColumn]))
+
 
       return
     }
@@ -38,7 +46,7 @@ const LogView = ({ log }: LogViewProps) => {
     setDirection(direction === 'ascending' ? 'descending' : 'ascending')
   }
 
-  if (data === null ) {
+  if (data === null) {
     return null
   }
 
@@ -46,7 +54,7 @@ const LogView = ({ log }: LogViewProps) => {
     <Grid
       style={{ background: 'violet', height: '100%' }}>
       <Grid.Column >
-        <Table sortable celled fixed>
+        <Table unstackable sortable celled fixed>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell
@@ -56,10 +64,10 @@ const LogView = ({ log }: LogViewProps) => {
                 Name
               </Table.HeaderCell>
               <Table.HeaderCell
-                sorted={column === 'birth' ? direction : null}
-                onClick={handleSort('birth')}
+                sorted={column === 'age' ? direction : null}
+                onClick={handleSort('age')}
               >
-                Birth
+                Age
               </Table.HeaderCell>
               <Table.HeaderCell
                 sorted={column === 'relation' ? direction : null}
@@ -73,8 +81,12 @@ const LogView = ({ log }: LogViewProps) => {
             {_.map(data, (person: any) => {
               return (
                 <Table.Row key={person.name}>
-                  <Table.Cell>{person.name} ({moment().diff(person.birth, 'years')} y)</Table.Cell>
-                  <Table.Cell>{moment(person.birth).format('DD.MM.YYYY')}</Table.Cell>
+                  <Table.Cell>
+                    <Link to={`/logs/${person.id}`}>
+                      {person.name}
+                    </Link>
+                  </Table.Cell>
+                  <Table.Cell>{moment().diff(person.birth, 'years')} years</Table.Cell>
                   <Table.Cell>{person.relation}</Table.Cell>
                 </Table.Row>
               )

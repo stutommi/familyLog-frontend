@@ -1,16 +1,24 @@
 // Libraries
 import * as React from 'react'
-import { useState } from 'react'
+import { connect } from 'react-redux'
 import { Responsive, Menu, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-
+// Types
+import { AppState } from '../store'
+// Redux actions
+import { setPage } from '../store/system/actions'
 
 export interface DesktopContainerProps {
   children: [JSX.Element] | JSX.Element,
   logOut: Function,
+  setPage: typeof setPage
 }
 
 const DesktopContainer = (props: DesktopContainerProps) => {
+
+  const handleSetPage = (page: string) => () => {
+    props.setPage(page)
+  }
 
   return (
     <>
@@ -31,27 +39,27 @@ const DesktopContainer = (props: DesktopContainerProps) => {
             FamilyLog
           </Menu.Item>
 
-          <Menu.Item>
+          <Menu.Item
+            as={Link} to='/logs'
+            onClick={handleSetPage('Logs')}>
             <Icon name='list alternate' />
-            <Link to='/logs'>
-              Logs
-              </Link>
+            Logs
           </Menu.Item>
 
-          <Menu.Item>
+          <Menu.Item
+            as={Link} to='/new-info'
+            onClick={handleSetPage('New Person')}>
             <Icon name='add user' />
-            <Link to='/new-info'>
-              Add to log
-              </Link>
+            Add to log
           </Menu.Item>
 
           <Menu.Menu position='right'>
 
-            <Menu.Item>
+            <Menu.Item
+              as={Link} to='/about'
+              onClick={handleSetPage('About')}>
               <Icon name='question' />
-              <Link to='/about'>
-                About
-              </Link>
+              About
             </Menu.Item>
 
             <Menu.Item>
@@ -71,4 +79,4 @@ const DesktopContainer = (props: DesktopContainerProps) => {
   )
 }
 
-export default DesktopContainer
+export default connect(null, { setPage })(DesktopContainer)

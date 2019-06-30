@@ -1,28 +1,48 @@
 {
   "persons": [
     {
+      "id": "235324",
       "name": "Krista Iskala",
       "birth": "1992-10-18T22:00:00.000Z",
       "relation": "Girlfriend",
-      "relative": true
+      "relative": true,
+      "dislikes": [
+        "jepjep"
+      ],
+      "likes": [
+        "Pilates",
+        "Her family",
+        "jeo",
+        "jeps"
+      ]
     },
     {
+      "id": "23532463",
       "name": "Matti Tampio",
       "birth": "1988-03-20T22:00:00.000Z",
       "relation": "Brother",
       "relative": true
     },
     {
+      "id": "235321214",
       "name": "Reijo Tampio",
       "birth": "1959-12-30T22:00:00.000Z",
       "relation": "Father",
       "relative": true
     },
     {
+      "id": "23532451353455",
       "name": "Reija Kälkäjä",
       "birth": "1962-12-25T22:00:00.000Z",
       "relation": "Mother",
       "relative": true
+    },
+    {
+      "name": "Hannu",
+      "birth": "1232-03-12T00:00:00.000Z",
+      "id": "23412sdsoiasdsad",
+      "relation": "teemuki",
+      "relative": false
     }
   ]
 }

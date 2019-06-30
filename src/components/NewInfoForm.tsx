@@ -1,12 +1,13 @@
 // Libraries
 import * as React from 'react'
-import { Form, Grid, Segment } from 'semantic-ui-react'
+import { useState } from 'react'
+import { connect } from 'react-redux'
+import { Label, Radio, Form, Grid, Segment } from 'semantic-ui-react'
 import * as moment from 'moment'
 // Hooks
 import { useField } from '../hooks/useField'
 // Redux actions
 import { thunkNewPerson } from '../thunks'
-import { connect } from 'net';
 
 moment.updateLocale('en', {
   relativeTime: {
@@ -22,23 +23,25 @@ const NewInfoForm = (props: NewInfoFormProps) => {
   const name = useField('text', 'Name', 'Name')
   const relation = useField('text', 'e.g Cousin...', 'Relation')
   const dateOfBirth = useField('date', 'Date of Birth', 'Date of Birth')
+  const [relative, setRelative] = useState(false)
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
 
-    thunkNewPerson(
+    props.thunkNewPerson(
       {
-        name: 'Hemuli',
-        birth: new Date('2013'),
-        id: '23412oi',
-        relation: 'Bully',
-        relative: false
+        name: name.attributes.value,
+        birth: new Date(dateOfBirth.attributes.value),
+        id: '23412sdsoiasdsad',
+        relation: relation.attributes.value,
+        relative: relative
       }
     )
 
     name.reset()
     dateOfBirth.reset()
     relation.reset()
+    setRelative(false)
   }
 
   return (
@@ -53,6 +56,15 @@ const NewInfoForm = (props: NewInfoFormProps) => {
             <Form.Input {...name.attributes} />
             <Form.Input {...dateOfBirth.attributes} />
             <Form.Input {...relation.attributes} />
+            <Form.Field>
+
+              <Radio
+                toggle
+                onClick={() => setRelative(!relative)}
+                checked={relative}
+                label='related'
+              />
+            </Form.Field>
             <Form.Button>
               Add person
             </Form.Button>
@@ -63,4 +75,7 @@ const NewInfoForm = (props: NewInfoFormProps) => {
   )
 }
 
+
+
+// JATKUU TÄSTÄ
 export default connect(null, { thunkNewPerson })(NewInfoForm)

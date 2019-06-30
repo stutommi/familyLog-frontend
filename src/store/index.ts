@@ -3,9 +3,11 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 // Reducers
 import { logReducer } from './logs/reducers'
+import { systemReducer } from './system/reducers'
 
 const rootReducer = combineReducers({
-  log: logReducer
+  log: logReducer,
+  system: systemReducer
 })
 
 export const store = createStore(

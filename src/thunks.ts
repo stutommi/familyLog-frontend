@@ -19,11 +19,24 @@ export const thunkInitializeLog = (): ThunkAction<void, AppState, null, Action<s
 }
 
 export const thunkNewPerson = (person: Person): ThunkAction<void, AppState, null, Action<string>> => async dispatch => {
-  console.log('THUNK')
   try {
     const response = await axios.post('http://localhost:3005/persons', person)
     dispatch(
       newPerson(response.data)
+    )
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const thunkEditPerson = (id: string, person: Person): ThunkAction<void, AppState, null, Action<string>> => async dispatch => {
+  console.log('THUNK')
+  try {
+    console.log('object')
+    const response = await axios.put(`http://localhost:3005/persons/${id}`, person)
+    console.log('response', response)
+    dispatch(
+      editPerson(response.data)
     )
   } catch (error) {
     console.error(error)

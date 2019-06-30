@@ -1,7 +1,6 @@
 // Types
 import {
   LogActionTypes,
-  Person,
   LogState,
   INITIALIZE_LOG,
   EDIT_PERSON,
@@ -20,14 +19,15 @@ export const logReducer = (
       state = action.persons
       return state
     case EDIT_PERSON:
-      state.persons.map(person => {
-        person.id === action.updatedPerson.id
-          ? action.updatedPerson
-          : person
-      })
-      return state
+      return {
+        persons: state.persons.map(person =>
+          person.id === action.updatedPerson.id
+            ? action.updatedPerson
+            : person
+        )
+      }
     case NEW_PERSON:
-      state.persons.concat(action.newPerson)
+      state.persons = state.persons.concat(action.newPerson)
       return state
     default:
       return state

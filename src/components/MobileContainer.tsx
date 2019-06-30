@@ -1,16 +1,28 @@
 // Libraries
 import * as React from 'react'
 import { useState } from 'react'
-
 import { Responsive, Sidebar, Menu, Icon } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+// Redux actions
+import { setPage } from '../store/system/actions'
+// Types
+import { AppState } from '../store/'
 
 interface MobileContainerProps {
   children: [JSX.Element] | JSX.Element
   logOut: Function,
+  setPage: typeof setPage,
+  page: string
 }
 
 const MobileContainer = (props: MobileContainerProps) => {
   const [showSidebar, setShowSidebar] = useState(false)
+
+  const handleSetPage = (page: string) => () => {
+    props.setPage(page)
+    setShowSidebar(false)
+  }
 
   return (
     <>
@@ -30,9 +42,25 @@ const MobileContainer = (props: MobileContainerProps) => {
           width='thin'
         >
 
-          <Menu.Item>
+          <Menu.Item
+            as={Link} to='/logs'
+            onClick={handleSetPage('Logs')}>
+            <Icon name='list alternate' />
+            Logs
+          </Menu.Item>
+
+          <Menu.Item
+            as={Link} to='/new-info'
+            onClick={handleSetPage('New Person')}>
             <Icon name='add user' />
             Add to log
+          </Menu.Item>
+
+          <Menu.Item
+            as={Link} to='/about'
+            onClick={handleSetPage('About')}>
+            <Icon name='question' />
+            About
             </Menu.Item>
         </Sidebar>
 
@@ -44,7 +72,8 @@ const MobileContainer = (props: MobileContainerProps) => {
             </Menu.Item>
 
             <Menu.Item header={true}>
-              Hei
+
+              {props.page}
             </Menu.Item>
 
             <Menu.Item position='right' onClick={() => props.logOut()} style={{ alignSelf: 'center' }}>
@@ -67,4 +96,10 @@ const MobileContainer = (props: MobileContainerProps) => {
   )
 }
 
-export default MobileContainer
+const mapStateToProps = (state: AppState) => {
+  return {
+    page: state.system.page
+  }
+}
+
+export default connect(mapStateToProps, { setPage })(MobileContainer)
