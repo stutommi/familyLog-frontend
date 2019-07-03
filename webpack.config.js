@@ -5,7 +5,7 @@ const config = (env, argv) => {
 
   const backend_url = argv.mode === 'production'
     ? 'real address'
-    : 'http://localhost:3001'
+    : 'http://localhost:3003'
 
   return {
     entry: './src/index.tsx',
@@ -18,7 +18,14 @@ const config = (env, argv) => {
       contentBase: path.resolve(__dirname, 'build'),
       compress: true,
       port: 3000,
-      historyApiFallback: true
+      historyApiFallback: true,
+      proxy: {
+        '/api/**': {
+          target: backend_url,
+          secure: false,
+          changeOrigin: true
+        }
+      }
     },
     devtool: "source-map",
 

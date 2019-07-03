@@ -4,7 +4,8 @@ import {
   LogState,
   INITIALIZE_LOG,
   EDIT_PERSON,
-  NEW_PERSON
+  NEW_PERSON,
+  DELETE_PERSON
 } from './types'
 
 const initialState: LogState = {
@@ -27,8 +28,13 @@ export const logReducer = (
         )
       }
     case NEW_PERSON:
-      state.persons = state.persons.concat(action.newPerson)
-      return state
+      return {
+        persons: state.persons.concat(action.newPerson)
+      }
+    case DELETE_PERSON:
+      return {
+        persons: state.persons.filter(person => person.id !== action.id)
+      }
     default:
       return state
   }

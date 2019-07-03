@@ -1,38 +1,35 @@
 // Libraries
-import React from 'react'
-import PropTypes from 'prop-types'
+import * as React from 'react'
 import { Button, Form, Segment } from 'semantic-ui-react'
-import { useMutation } from 'react-apollo-hooks'
-// TypeDefs
-import loginUser from '../graphql/mutations/loginUser'
-import currentUser from '../graphql/queries/currentUser'
+import { connect } from 'react-redux'
+import { Redirect, withRouter } from 'react-router-dom'
 // Custom hooks
-import { useField } from '../hooks/useField'
+import { useField } from '../../hooks/useField'
+// Types
 
-const LoginForm = ({ setNotification, setToken }) => {
-  const login = useMutation(loginUser)
-  // eslint-disable-next-line no-unused-vars
-  const { reset: usernameReset, ...username } = useField('text')
-  // eslint-disable-next-line no-unused-vars
-  const { reset: passwordReset, ...password } = useField('password')
+// Redux actions
+import { thunkLogin } from '../../thunks'
+
+interface LoginFormProps {
+  setNotification: Function,
+  thunkLogin: Function
+}
+
+const LoginForm = ({ setNotification, thunkLogin }: LoginFormProps) => {
+  const email = useField('text', 'Email', '')
+  const password = useField('password', 'Password', '')
 
 
   const handleLogin = async () => {
     try {
-      await login({
-        update: (client, result) => {
-          const token = result.data.login
-          setToken(token)
-          localStorage.setItem('kaste-user-token', JSON.stringify(token))
-        },
-        variables: {
-          username: username.value,
-          password: password.value
-        },
-        refetchQueries: [{ query: currentUser }]
-      })
+      const user = await thunkLogin(password.attributes.value, email.attributes.value)
+
+      window.localStorage.setItem('familylog-user-token', user.token)
+      window.localStorage.setItem('familylog-user-username', user.username)
+
+      return <Redirect to='/logs' />
     } catch (error) {
-      setNotification(error.graphQLErrors[0].message)
+      setNotification(error.response.data)
     }
   }
 
@@ -40,21 +37,17 @@ const LoginForm = ({ setNotification, setToken }) => {
     <Form size='large' onSubmit={handleLogin}>
       <Segment stacked raised>
         <Form.Input
-          {...username}
-          data-cy='username'
+          {...email.attributes}
           fluid
-          icon='user'
+          icon='at'
           iconPosition='left'
-          placeholder='Username'
-          autoComplete='current-username'
+          autoComplete='current-email'
         />
         <Form.Input
-          {...password}
-          data-cy='password'
+          {...password.attributes}
           fluid
           icon='lock'
           iconPosition='left'
-          placeholder='Password'
           autoComplete='current-password'
         />
 
@@ -66,10 +59,4 @@ const LoginForm = ({ setNotification, setToken }) => {
   )
 }
 
-LoginForm.propTypes = {
-  setNotification: PropTypes.func.isRequired,
-  setToken: PropTypes.func.isRequired,
-}
-
-
-export default LoginForm
+export default connect(null, { thunkLogin })(LoginForm)

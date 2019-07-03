@@ -3,17 +3,21 @@ import * as React from 'react'
 import { useState } from 'react'
 import { Responsive, Sidebar, Menu, Icon } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 // Redux actions
-import { setPage } from '../store/system/actions'
+import { setPage } from '../../store/system/actions'
+import { logout } from '../../store/user/actions'
 // Types
-import { AppState } from '../store/'
+import { AppState } from '../../store'
+import { LogState } from '../../store/logs/types'
 
 interface MobileContainerProps {
   children: [JSX.Element] | JSX.Element
-  logOut: Function,
+  logout: typeof logout,
   setPage: typeof setPage,
   page: string
+  location: typeof location
+  log: LogState
 }
 
 const MobileContainer = (props: MobileContainerProps) => {
@@ -22,6 +26,29 @@ const MobileContainer = (props: MobileContainerProps) => {
   const handleSetPage = (page: string) => () => {
     props.setPage(page)
     setShowSidebar(false)
+  }
+
+  const handleLogout = () => {
+    window.localStorage.clear()
+    props.logout()
+  }
+
+  // Show person name, if in PersonView component
+  const showHeader = () => {
+    const location = props.location.pathname
+
+    if (props.location.pathname.length > 10) {
+      const person = props.log.persons
+        .find(p => p.id === location.substring(6))
+
+        if (!person) {
+          return null
+        }
+
+        return person.name.split(' ')[0]
+    }
+
+    return location.slice(1)
   }
 
   return (
@@ -73,10 +100,10 @@ const MobileContainer = (props: MobileContainerProps) => {
 
             <Menu.Item header={true}>
 
-              {props.page}
+              {showHeader()}
             </Menu.Item>
 
-            <Menu.Item position='right' onClick={() => props.logOut()} style={{ alignSelf: 'center' }}>
+            <Menu.Item position='right' onClick={handleLogout} style={{ alignSelf: 'center' }}>
               <Icon name='log out' />
             </Menu.Item>
           </Menu>
@@ -98,8 +125,10 @@ const MobileContainer = (props: MobileContainerProps) => {
 
 const mapStateToProps = (state: AppState) => {
   return {
-    page: state.system.page
+    page: state.system.page,
+    log: state.log
   }
 }
 
-export default connect(mapStateToProps, { setPage })(MobileContainer)
+// @ts-ignore
+export default withRouter(connect(mapStateToProps, { setPage, logout })(MobileContainer))

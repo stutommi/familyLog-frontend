@@ -2,21 +2,39 @@
 import * as React from 'react'
 import * as moment from 'moment'
 import { Grid, Segment, Header, Icon, Table, Button } from 'semantic-ui-react'
-// Hooks
-import { useField } from '../hooks/useField'
+import { Redirect, withRouter } from 'react-router'
+import { connect } from 'react-redux'
 // Types
 import { Person } from '../store/logs/types'
 // Components
 import PersonInfoTableRow from './PersonInfoTableRow'
 import DislikesSegment from './DislikesSegment'
 import LikesSegment from './LikesSegment'
+// Redux actions
+import { thunkDeletePerson } from '../thunks'
 
 
 interface PersonViewProps {
   person: Person,
+  thunkDeletePerson: typeof thunkDeletePerson
 }
 
-const PersonView = ({ person }: PersonViewProps) => {
+const PersonView = ({ person, thunkDeletePerson }: PersonViewProps) => {
+
+  const handleDelete = () => {
+    const confirmation: boolean = window.confirm('Are you sure?')
+
+    if (!confirmation) {
+      return
+    }
+
+    thunkDeletePerson(person.id)
+  }
+
+  if (person === undefined) {
+    return <Redirect to='/logs' />
+  }
+
   return (
     <Grid
       stackable
@@ -59,17 +77,29 @@ const PersonView = ({ person }: PersonViewProps) => {
       </Grid.Row>
       <Grid.Row columns={2}>
         <Grid.Column >
+
           <LikesSegment
             person={person} />
         </Grid.Column>
+
         <Grid.Column>
+
           <DislikesSegment
             person={person}
           />
+
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row >
+        <Grid.Column textAlign='center'>
+          <Button negative onClick={handleDelete}>
+            Delete Person
+          </Button>
         </Grid.Column>
       </Grid.Row>
     </Grid>
   )
 }
 
-export default PersonView
+// @ts-ignore
+export default withRouter(connect(null, { thunkDeletePerson })(PersonView))

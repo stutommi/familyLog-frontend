@@ -5,7 +5,8 @@ import {
   LogState,
   INITIALIZE_LOG,
   EDIT_PERSON,
-  NEW_PERSON
+  NEW_PERSON,
+  DELETE_PERSON
 } from './types'
 
 export const initializeLog = (logState: LogState): LogActionTypes => {
@@ -26,5 +27,12 @@ export const editPerson = (person: Person): LogActionTypes => {
   return {
     type: EDIT_PERSON,
     updatedPerson: person
+  }
+}
+
+export const deletePerson = (id: string): LogActionTypes => {
+  return {
+    type: DELETE_PERSON,
+    id
   }
 }

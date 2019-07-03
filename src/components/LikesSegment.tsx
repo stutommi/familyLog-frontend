@@ -1,4 +1,4 @@
-// Hideous duplicate of DislikesSegment, I know.. 
+// Hideous duplicate of DislikesSegment.. 
 
 // Libraries
 import * as React from 'react'

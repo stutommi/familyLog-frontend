@@ -1,25 +1,28 @@
 // Libraries
 import * as React from 'react'
+import { Redirect } from 'react-router-dom'
 // Components
 import MobileContainer from './MobileContainer'
 import DesktopContainer from './DesktopContainer'
 
 export interface ResponsiveLayoutProps {
   children: [JSX.Element] | JSX.Element,
-  logOut: Function,
+  loggedIn: boolean
 }
 
 const ResponsiveLayout = (props: ResponsiveLayoutProps) => {
+  
+  if (!props.loggedIn) {
+    return <Redirect to='/login' />
+  }
 
   return (
     <>
-      <MobileContainer  // Mobile view
-        logOut={props.logOut}>
+      <MobileContainer>
         {props.children}
       </MobileContainer>
 
-      <DesktopContainer // Tablet - desktop view
-        logOut={props.logOut}>
+      <DesktopContainer>
         {props.children}
       </DesktopContainer>
     </>

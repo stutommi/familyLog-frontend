@@ -5,11 +5,10 @@ import * as moment from 'moment'
 import { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Grid, Table } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
-
+import { Link, withRouter } from 'react-router-dom'
 // Types
-import { LogState, Person } from '../../store/logs/types'
-import { AppState } from '../../store'
+import { LogState, Person } from '../store/logs/types'
+import { AppState } from '../store'
 
 interface LogViewProps {
   log: LogState

@@ -8,11 +8,9 @@ export interface SystemState {
 
 export const SET_PAGE = 'SET_PAGE'
 
-
 interface SetPageAction {
   type: typeof SET_PAGE,
   page: string
 }
-
 
 export type SystemActionTypes = SetPageAction

@@ -6,7 +6,7 @@ import {
 } from './types'
 
 const initialState: SystemState = {
-  page: 'Logs'
+  page: 'Logs',
 }
 
 export const systemReducer = (
@@ -15,6 +15,7 @@ export const systemReducer = (
   switch (action.type) {
     case SET_PAGE:
       return {
+        ...state,
         page: action.page
       }
     default:

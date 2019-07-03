@@ -4,13 +4,14 @@ import { connect } from 'react-redux'
 import { Responsive, Menu, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 // Types
-import { AppState } from '../store'
+import { AppState } from '../../store'
 // Redux actions
-import { setPage } from '../store/system/actions'
+import { setPage } from '../../store/system/actions'
+import { logout } from '../../store/user/actions'
 
 export interface DesktopContainerProps {
   children: [JSX.Element] | JSX.Element,
-  logOut: Function,
+  logout: typeof logout
   setPage: typeof setPage
 }
 
@@ -18,6 +19,11 @@ const DesktopContainer = (props: DesktopContainerProps) => {
 
   const handleSetPage = (page: string) => () => {
     props.setPage(page)
+  }
+
+  const handleLogout = () => {
+    window.localStorage.clear()
+    props.logout()
   }
 
   return (
@@ -62,7 +68,8 @@ const DesktopContainer = (props: DesktopContainerProps) => {
               About
             </Menu.Item>
 
-            <Menu.Item>
+            <Menu.Item 
+            onClick={handleLogout}>
               <Icon name='log out' />
               Log out
             </Menu.Item>
@@ -79,4 +86,4 @@ const DesktopContainer = (props: DesktopContainerProps) => {
   )
 }
 
-export default connect(null, { setPage })(DesktopContainer)
+export default connect(null, { setPage, logout })(DesktopContainer)

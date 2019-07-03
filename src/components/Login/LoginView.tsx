@@ -6,10 +6,10 @@ import { Menu, Message, Grid, Header } from 'semantic-ui-react'
 import LoginForm from './LoginForm'
 import RegisterForm from './RegisterForm'
 // Hooks
-import { useNotification } from '../hooks/useNotification'
+import { useNotification } from '../../hooks/useNotification'
 
 
-const LoginView = ({ setToken }) => {
+const LoginView = () => {
   const [notification, setNotification] = useNotification()
   const [loginVisible, setLoginVisible] = useState(true)
 
@@ -25,10 +25,10 @@ const LoginView = ({ setToken }) => {
           `}
       </style>
 
-      <Grid textAlign='center' style={{ height: '100vh', background: 'lightgreen', margin: 0 }} verticalAlign='middle'>
+      <Grid textAlign='center' style={{ height: '100vh', background: 'pink', margin: 0 }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 250 }}>
           <Header as='h1' color='grey' dividing textAlign='center'>
-            Log in to Kaste 2.0
+            FamilyLog
           </Header>
 
           <Menu widths={2} color='brown'>
@@ -45,7 +45,6 @@ const LoginView = ({ setToken }) => {
             loginVisible
               ? <LoginForm
                 setNotification={setNotification}
-                setToken={setToken}
               />
               : <RegisterForm
                 setLoginVisible={setLoginVisible}
