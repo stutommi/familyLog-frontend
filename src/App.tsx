@@ -1,12 +1,13 @@
 // Libraries
 import * as React from 'react'
-import { useEffect } from 'react'
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { Loader } from 'semantic-ui-react'
 // Components
 import ResponsiveLayout from './components/Layout/ResponsiveLayout'
 import AboutView from './components/AboutView'
-import LogView from './components/LogView'
+import LogView from './components/Log/LogView'
 import NewInfoForm from './components/NewInfoForm'
 import PersonView from './components/PersonView'
 import LoginView from './components/Login/LoginView'
@@ -28,8 +29,8 @@ interface AppProps {
 }
 
 const App = (props: AppProps) => {
-  const loggedIn = props.user !== null
-
+  const [loggedIn, setLoggedIn] = useState(undefined)
+   
   // Logs in automatically if localstore has token and user
   useEffect(() => {
     const token = window.localStorage.getItem('familylog-user-token')
@@ -40,7 +41,12 @@ const App = (props: AppProps) => {
         username: user,
         token: token
       })
+
+      setLoggedIn(true)
+    } else {
+      setLoggedIn(false)
     }
+
   }, [])
 
   // Fetches logs from DB if logged in
@@ -50,47 +56,62 @@ const App = (props: AppProps) => {
     }
   }, [loggedIn])
 
+  useEffect(() => {
+    if (props.user === null && loggedIn !== undefined) {
+      setLoggedIn(false)
+    } else if
+      (props.user !== null && props.user.loggedIn) {
+      setLoggedIn(true)
+    }
+
+  }, [props.user, loggedIn])
+
   const personById = (id: string): Person =>
     props.log.persons.find(person => person.id === id)
 
   return (
     <Router>
-      <Route exact path='/login' render={() => <LoginView />} />
-      <ResponsiveLayout loggedIn={loggedIn}>
-        <>
-          {loggedIn && <Redirect to='/logs' />}
 
-          <PrivateRoute // ABOUT VIEW
-            loggedIn={loggedIn}
-            exact
-            path='/about'
-            component={AboutView} />
+      {
+        loggedIn === undefined
 
-          <PrivateRoute // NEW PERSON FORM
-            loggedIn={loggedIn}
-            exact
-            path='/new-info'
-            component={NewInfoForm} />
+          ? <Loader inverted />
 
-          <PrivateRoute // LOGS
-            loggedIn={loggedIn}
-            exact
-            path='/logs'
-            component={LogView} />
+          : <>
+            <Route exact path='/login' render={() => <LoginView />} />
+            <ResponsiveLayout loggedIn={loggedIn}>
+              <>
+                <PrivateRoute // ABOUT VIEW
+                  loggedIn={loggedIn}
+                  exact
+                  path='/about'
+                  component={AboutView} />
 
-          <PrivateRoute // PERSON VIEW
-            loggedIn={loggedIn}
-            personById={(id: any) => personById(id)}
-            exact
-            path='/logs/:id'
-            component={PersonView} />
-        </>
-      </ ResponsiveLayout>
+                <PrivateRoute // NEW PERSON FORM
+                  loggedIn={loggedIn}
+                  exact
+                  path='/new-info'
+                  component={NewInfoForm} />
+
+                <PrivateRoute // LOGS
+                  loggedIn={loggedIn}
+                  exact
+                  path='/logs'
+                  component={LogView} />
+
+                <PrivateRoute // PERSON VIEW
+                  loggedIn={loggedIn}
+                  personById={(id: any) => personById(id)}
+                  exact
+                  path='/logs/:id'
+                  component={PersonView} />
+              </>
+            </ ResponsiveLayout>
+          </>
+      }
     </Router>
   )
 }
-
-
 
 const mapStateToProps = (state: AppState) => {
   return {
@@ -99,4 +120,5 @@ const mapStateToProps = (state: AppState) => {
   }
 }
 
+// @ts-ignore
 export default connect(mapStateToProps, { thunkInitializeLog, login })(App)

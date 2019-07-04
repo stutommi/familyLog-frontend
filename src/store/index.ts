@@ -3,12 +3,10 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 // Reducers
 import { logReducer } from './logs/reducers'
-import { systemReducer } from './system/reducers'
 import { userReducer } from './user/reducers'
 
 const rootReducer = combineReducers({
   log: logReducer,
-  system: systemReducer,
   user: userReducer
 })
 

@@ -4,6 +4,7 @@ import {
   Person,
   LogState,
   INITIALIZE_LOG,
+  CLEAR_LOG,
   EDIT_PERSON,
   NEW_PERSON,
   DELETE_PERSON
@@ -13,6 +14,12 @@ export const initializeLog = (logState: LogState): LogActionTypes => {
   return {
     type: INITIALIZE_LOG,
     persons: logState
+  }
+}
+
+export const clearLog = (): LogActionTypes => {
+  return {
+    type: CLEAR_LOG,
   }
 }
 

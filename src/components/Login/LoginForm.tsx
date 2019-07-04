@@ -12,13 +12,13 @@ import { thunkLogin } from '../../thunks'
 
 interface LoginFormProps {
   setNotification: Function,
-  thunkLogin: Function
+  thunkLogin: Function,
+  history: any
 }
 
-const LoginForm = ({ setNotification, thunkLogin }: LoginFormProps) => {
+const LoginForm = ({ setNotification, thunkLogin, history }: LoginFormProps) => {
   const email = useField('text', 'Email', '')
   const password = useField('password', 'Password', '')
-
 
   const handleLogin = async () => {
     try {
@@ -27,7 +27,7 @@ const LoginForm = ({ setNotification, thunkLogin }: LoginFormProps) => {
       window.localStorage.setItem('familylog-user-token', user.token)
       window.localStorage.setItem('familylog-user-username', user.username)
 
-      return <Redirect to='/logs' />
+      history.push('/logs')
     } catch (error) {
       setNotification(error.response.data)
     }
@@ -59,4 +59,5 @@ const LoginForm = ({ setNotification, thunkLogin }: LoginFormProps) => {
   )
 }
 
-export default connect(null, { thunkLogin })(LoginForm)
+// @ts-ignore
+export default withRouter(connect(null, { thunkLogin })(LoginForm))

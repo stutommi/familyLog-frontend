@@ -18,6 +18,8 @@ const config = (env, argv) => {
       contentBase: path.resolve(__dirname, 'build'),
       compress: true,
       port: 3000,
+      inline: true,
+      hot: true,
       historyApiFallback: true,
       proxy: {
         '/api/**': {

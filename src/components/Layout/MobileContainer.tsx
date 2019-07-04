@@ -5,32 +5,28 @@ import { Responsive, Sidebar, Menu, Icon } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 // Redux actions
-import { setPage } from '../../store/system/actions'
 import { logout } from '../../store/user/actions'
+import { clearLog } from '../../store/logs/actions'
 // Types
 import { AppState } from '../../store'
 import { LogState } from '../../store/logs/types'
 
 interface MobileContainerProps {
   children: [JSX.Element] | JSX.Element
-  logout: typeof logout,
-  setPage: typeof setPage,
+  logout: typeof logout
   page: string
   location: typeof location
   log: LogState
+  clearLog: typeof clearLog
 }
 
 const MobileContainer = (props: MobileContainerProps) => {
   const [showSidebar, setShowSidebar] = useState(false)
 
-  const handleSetPage = (page: string) => () => {
-    props.setPage(page)
-    setShowSidebar(false)
-  }
-
   const handleLogout = () => {
     window.localStorage.clear()
     props.logout()
+    props.clearLog()
   }
 
   // Show person name, if in PersonView component
@@ -71,21 +67,21 @@ const MobileContainer = (props: MobileContainerProps) => {
 
           <Menu.Item
             as={Link} to='/logs'
-            onClick={handleSetPage('Logs')}>
+            onClick={() => setShowSidebar(false)}>
             <Icon name='list alternate' />
             Logs
           </Menu.Item>
 
           <Menu.Item
             as={Link} to='/new-info'
-            onClick={handleSetPage('New Person')}>
+            onClick={() => setShowSidebar(false)}>
             <Icon name='add user' />
             Add to log
           </Menu.Item>
 
           <Menu.Item
             as={Link} to='/about'
-            onClick={handleSetPage('About')}>
+            onClick={() => setShowSidebar(false)}>
             <Icon name='question' />
             About
             </Menu.Item>
@@ -125,10 +121,9 @@ const MobileContainer = (props: MobileContainerProps) => {
 
 const mapStateToProps = (state: AppState) => {
   return {
-    page: state.system.page,
     log: state.log
   }
 }
 
 // @ts-ignore
-export default withRouter(connect(mapStateToProps, { setPage, logout })(MobileContainer))
+export default withRouter(connect(mapStateToProps, { logout, clearLog })(MobileContainer))

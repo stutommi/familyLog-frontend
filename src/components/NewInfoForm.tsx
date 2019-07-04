@@ -2,7 +2,7 @@
 import * as React from 'react'
 import { useState } from 'react'
 import { connect } from 'react-redux'
-import { Radio, Form, Grid, Segment } from 'semantic-ui-react'
+import { Radio, Form, Grid, Segment, Header } from 'semantic-ui-react'
 import * as moment from 'moment'
 // Hooks
 import { useField } from '../hooks/useField'
@@ -55,6 +55,7 @@ const NewInfoForm = (props: NewInfoFormProps) => {
       style={{ height: '100%', background: 'lightpink' }}
     >
       <Grid.Column style={{ maxWidth: 250 }}>
+        <Header>Add a person to log</Header>
         <Segment>
           <Form onSubmit={handleSubmit}>
             <Form.Input {...name.attributes} />

@@ -3,27 +3,22 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { Responsive, Menu, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-// Types
-import { AppState } from '../../store'
 // Redux actions
-import { setPage } from '../../store/system/actions'
 import { logout } from '../../store/user/actions'
+import { clearLog } from '../../store/logs/actions'
 
 export interface DesktopContainerProps {
   children: [JSX.Element] | JSX.Element,
   logout: typeof logout
-  setPage: typeof setPage
+  clearLog: typeof clearLog
 }
 
 const DesktopContainer = (props: DesktopContainerProps) => {
 
-  const handleSetPage = (page: string) => () => {
-    props.setPage(page)
-  }
-
   const handleLogout = () => {
     window.localStorage.clear()
     props.logout()
+    props.clearLog()
   }
 
   return (
@@ -45,31 +40,25 @@ const DesktopContainer = (props: DesktopContainerProps) => {
             FamilyLog
           </Menu.Item>
 
-          <Menu.Item
-            as={Link} to='/logs'
-            onClick={handleSetPage('Logs')}>
+          <Menu.Item as={Link} to='/logs'>
             <Icon name='list alternate' />
             Logs
           </Menu.Item>
 
-          <Menu.Item
-            as={Link} to='/new-info'
-            onClick={handleSetPage('New Person')}>
+          <Menu.Item as={Link} to='/new-info'>
             <Icon name='add user' />
             Add to log
           </Menu.Item>
 
           <Menu.Menu position='right'>
 
-            <Menu.Item
-              as={Link} to='/about'
-              onClick={handleSetPage('About')}>
+            <Menu.Item as={Link} to='/about'>
               <Icon name='question' />
               About
             </Menu.Item>
 
-            <Menu.Item 
-            onClick={handleLogout}>
+            <Menu.Item
+              onClick={handleLogout}>
               <Icon name='log out' />
               Log out
             </Menu.Item>
@@ -86,4 +75,4 @@ const DesktopContainer = (props: DesktopContainerProps) => {
   )
 }
 
-export default connect(null, { setPage, logout })(DesktopContainer)
+export default connect(null, { logout, clearLog })(DesktopContainer)

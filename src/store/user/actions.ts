@@ -14,6 +14,7 @@ export const login = (user: User): UserActionTypes => {
 }
 
 export const logout = (): UserActionTypes => {
+
   return {
     type: LOGOUT,
     user: null

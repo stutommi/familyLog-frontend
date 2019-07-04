@@ -4,24 +4,30 @@ import * as React from 'react'
 import * as moment from 'moment'
 import { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Grid, Table } from 'semantic-ui-react'
-import { Link, withRouter } from 'react-router-dom'
+import { Grid, Table, Loader } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 // Types
-import { LogState, Person } from '../store/logs/types'
-import { AppState } from '../store'
+import { LogState, Person } from '../../store/logs/types'
+import { AppState } from '../../store'
+// Components
+import AddPersonsNotification from './AddPersonsNotification'
 
 interface LogViewProps {
   log: LogState
 }
 
 const LogView = ({ log }: LogViewProps) => {
-  const [data, setData] = useState<any>(null)
+  const [data, setData] = useState(undefined)
   const [direction, setDirection] = useState(null)
   const [column, setColumn] = useState(null)
 
   useEffect(() => {
-    if (log.persons) {
+    if (log.persons === null) {
+      setData(undefined)
+    } else if (log.persons.length > 0) {
       setData(log.persons)
+    } else {
+      setData(null)
     }
   }, [log])
 
@@ -46,7 +52,13 @@ const LogView = ({ log }: LogViewProps) => {
   }
 
   if (data === null) {
-    return null
+    console.log('data', data)
+    // @ts-ignore
+    return <AddPersonsNotification />
+  }
+
+  if (data === undefined) {
+    return <Loader />
   }
 
   return (

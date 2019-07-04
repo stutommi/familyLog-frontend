@@ -1,6 +1,7 @@
 export interface User {
   token: string | null
   username: string
+  loggedIn?: boolean
 }
 
 export const LOGIN = 'LOGIN'

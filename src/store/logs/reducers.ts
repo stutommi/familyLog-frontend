@@ -5,11 +5,12 @@ import {
   INITIALIZE_LOG,
   EDIT_PERSON,
   NEW_PERSON,
-  DELETE_PERSON
+  DELETE_PERSON,
+  CLEAR_LOG
 } from './types'
 
 const initialState: LogState = {
-  persons: []
+  persons: null
 }
 
 export const logReducer = (
@@ -19,6 +20,8 @@ export const logReducer = (
     case INITIALIZE_LOG:
       state = action.persons
       return state
+    case CLEAR_LOG:
+      return { persons: null }
     case EDIT_PERSON:
       return {
         persons: state.persons.map(person =>

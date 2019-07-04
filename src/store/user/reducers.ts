@@ -14,7 +14,8 @@ export const userReducer = (
   switch (action.type) {
     case LOGIN:
       return {
-        ...action.user
+        ...action.user,
+        loggedIn: true
       }
     case LOGOUT:
       return null

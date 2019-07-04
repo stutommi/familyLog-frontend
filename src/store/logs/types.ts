@@ -9,17 +9,23 @@ export interface Person {
 }
 
 export interface LogState {
-  persons: Person[]
+  persons: Person[] | null
 }
 
 export const INITIALIZE_LOG = 'INITIALIZE_PERSONS'
+export const CLEAR_LOG = 'CLEAR_LOG'
 export const EDIT_PERSON = 'EDIT_PERSON'
 export const NEW_PERSON = 'NEW_PERSON'
 export const DELETE_PERSON = 'DELETE_PERSON'
 
-interface InitializePersonsAction {
+interface InitializeLogAction {
   type: typeof INITIALIZE_LOG,
   persons: LogState
+}
+
+interface ClearLogAction {
+  type: typeof CLEAR_LOG,
+
 }
 
 interface EditPersonAction {
@@ -38,7 +44,8 @@ interface DeletePersonAction {
 }
 
 export type LogActionTypes =
-  InitializePersonsAction |
+  InitializeLogAction |
+  ClearLogAction |
   EditPersonAction |
   NewPersonAction |
   DeletePersonAction
