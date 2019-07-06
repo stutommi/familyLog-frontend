@@ -3,7 +3,8 @@ import {
   User,
   UserActionTypes,
   LOGIN,
-  LOGOUT
+  LOGOUT,
+  EDIT_USER_EMAIL_NOTIFICATIONS
 } from './types'
 
 export const login = (user: User): UserActionTypes => {
@@ -18,5 +19,12 @@ export const logout = (): UserActionTypes => {
   return {
     type: LOGOUT,
     user: null
+  }
+}
+
+export const editUserEmailNotifications = (allowEmailNotifications: boolean): UserActionTypes => {
+  return {
+    type: EDIT_USER_EMAIL_NOTIFICATIONS,
+    allowEmailNotifications
   }
 }

@@ -6,11 +6,12 @@ import { connect } from 'react-redux'
 import { Loader } from 'semantic-ui-react'
 // Components
 import ResponsiveLayout from './components/Layout/ResponsiveLayout'
-import AboutView from './components/AboutView'
+import AboutView from './components/About/AboutView'
 import LogView from './components/Log/LogView'
 import NewInfoForm from './components/NewInfoForm'
-import PersonView from './components/PersonView'
+import PersonView from './components//PersonInfo/PersonView'
 import LoginView from './components/Login/LoginView'
+import SettingsView from './components/Settings/SettingsView'
 // Redux actions
 import { thunkInitializeLog } from './thunks'
 import { login } from './store/user/actions'
@@ -30,16 +31,18 @@ interface AppProps {
 
 const App = (props: AppProps) => {
   const [loggedIn, setLoggedIn] = useState(undefined)
-   
+
   // Logs in automatically if localstore has token and user
   useEffect(() => {
     const token = window.localStorage.getItem('familylog-user-token')
     const user = window.localStorage.getItem('familylog-user-username')
+    const allowEmailNotifications = window.localStorage.getItem('familylog-user-allowEmailNotifications')
 
-    if (token && user) {
+    if (token && user && allowEmailNotifications) {
       props.login({
         username: user,
-        token: token
+        token: token,
+        allowEmailNotifications: JSON.parse(allowEmailNotifications)
       })
 
       setLoggedIn(true)
@@ -105,6 +108,12 @@ const App = (props: AppProps) => {
                   exact
                   path='/logs/:id'
                   component={PersonView} />
+
+                <PrivateRoute // SETTINGS
+                  loggedIn={loggedIn}
+                  exact
+                  path='/settings'
+                  component={SettingsView} />
               </>
             </ ResponsiveLayout>
           </>

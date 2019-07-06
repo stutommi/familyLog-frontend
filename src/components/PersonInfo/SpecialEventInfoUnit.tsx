@@ -5,9 +5,9 @@ import { useState } from 'react'
 import { Segment, Sidebar, Grid, Icon } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 // Redux actions
-import { thunkEditPerson } from '../thunks'
+import { thunkEditPerson } from '../../thunks'
 // Types
-import { Person, SpecialEvent } from '../store/logs/types'
+import { Person, SpecialEvent } from '../../store/logs/types'
 
 interface SpecialEventInfoUnitProps {
   specialEvent: SpecialEvent

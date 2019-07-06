@@ -52,6 +52,11 @@ const DesktopContainer = (props: DesktopContainerProps) => {
 
           <Menu.Menu position='right'>
 
+            <Menu.Item as={Link} to='/settings'>
+              <Icon name='settings' />
+              Settings
+            </Menu.Item>
+
             <Menu.Item as={Link} to='/about'>
               <Icon name='question' />
               About

@@ -4,9 +4,9 @@ import { useState } from 'react'
 import { Segment, Sidebar, Grid } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 // Redux actions
-import { thunkEditPerson } from '../thunks'
+import { thunkEditPerson } from '../../thunks'
 // Types
-import { Person } from '../store/logs/types'
+import { Person } from '../../store/logs/types'
 
 interface PersonInfoUnitProps {
   like?: string

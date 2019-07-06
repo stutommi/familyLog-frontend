@@ -80,6 +80,13 @@ const MobileContainer = (props: MobileContainerProps) => {
           </Menu.Item>
 
           <Menu.Item
+            as={Link} to='/settings'
+            onClick={() => setShowSidebar(false)}>
+            <Icon name='settings' />
+            Settings
+            </Menu.Item>
+
+          <Menu.Item
             as={Link} to='/about'
             onClick={() => setShowSidebar(false)}>
             <Icon name='question' />

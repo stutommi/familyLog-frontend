@@ -6,11 +6,11 @@ import { connect } from 'react-redux'
 // Components
 import SpecialEventInfoUnit from './SpecialEventInfoUnit'
 // Hooks
-import { useField } from '../hooks/useField'
+import { useField } from '../../hooks/useField'
 // Redux Actions
-import { thunkEditPerson } from '../thunks'
+import { thunkEditPerson } from '../../thunks'
 // Types
-import { Person, SpecialEvent } from '../store/logs/types'
+import { Person, SpecialEvent } from '../../store/logs/types'
 
 interface SpecialEventsTable {
   person: Person,

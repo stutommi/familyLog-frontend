@@ -33,7 +33,10 @@ const NewInfoForm = (props: NewInfoFormProps) => {
       await props.thunkNewPerson(
         {
           name: name.attributes.value,
-          birth: new Date(dateOfBirth.attributes.value),
+          birth: {
+            date: new Date(dateOfBirth.attributes.value),
+            notifyByEmail: true
+          },
           relation: relation.attributes.value,
           relative: relative,
         }

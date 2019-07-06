@@ -5,14 +5,14 @@ import { Grid, Segment, Header, Icon, Table, Button } from 'semantic-ui-react'
 import { Redirect, withRouter } from 'react-router'
 import { connect } from 'react-redux'
 // Types
-import { Person } from '../store/logs/types'
+import { Person } from '../../store/logs/types'
 // Components
 import PersonInfoTableRow from './PersonInfoTableRow'
 import DislikesSegment from './DislikesSegment'
 import LikesSegment from './LikesSegment'
 import SpecialEventsSegment from './SpecialEventsSegment'
 // Redux actions
-import { thunkDeletePerson } from '../thunks'
+import { thunkDeletePerson } from '../../thunks'
 
 
 interface PersonViewProps {

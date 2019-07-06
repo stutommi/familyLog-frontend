@@ -8,11 +8,11 @@ import { connect } from 'react-redux'
 // Components
 import PersonInfoUnit from './PersonInfoUnit'
 // Hooks
-import { useField } from '../hooks/useField'
+import { useField } from '../../hooks/useField'
 // Redux Actions
-import { thunkEditPerson } from '../thunks'
+import { thunkEditPerson } from '../../thunks'
 // Types
-import { Person } from '../store/logs/types'
+import { Person } from '../../store/logs/types'
 
 interface LikesSegmentProps {
   person: Person,

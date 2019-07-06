@@ -4,10 +4,11 @@ import { Action } from 'redux'
 import { ThunkAction } from 'redux-thunk'
 // Redux actions
 import { initializeLog, newPerson, editPerson, deletePerson } from './store/logs/actions'
-import { login } from './store/user/actions'
+import { login, logout, editUserEmailNotifications } from './store/user/actions'
 // Types
 import { AppState } from './store'
 import { Person } from './store/logs/types'
+import { User } from './store/user/types'
 
 
 const tokenAuth = (token: string) => {
@@ -64,7 +65,6 @@ export const thunkDeletePerson = (
   id: string):
   ThunkAction<void, AppState, null, Action<string>> => async (dispatch, getState) => {
     try {
-      console.log('id', id)
       const state = getState()
       const response = await axios.delete(`/api/person/${id}`, tokenAuth(state.user.token))
       dispatch(
@@ -78,10 +78,39 @@ export const thunkDeletePerson = (
 export const thunkLogin = (
   password: string, email: string):
   ThunkAction<void, AppState, null, Action<string>> => async dispatch => {
-    const response = await axios.post(`/api/login`, { password, email })
+    const response = await axios.post(`/api/user/login`, { password, email })
     dispatch(
       login(response.data)
     )
 
     return response.data
+  }
+
+export const thunkDeleteUser = ():
+  ThunkAction<void, AppState, null, Action<string>> => async (dispatch, getState) => {
+    const username = getState().user.username
+    const response = await axios.post(`/api/user/delete`, { username })
+    dispatch(
+      logout()
+    )
+    localStorage.clear()
+
+    return response.data
+  }
+
+export const thunkEditUserEmailNotifications = ():
+  ThunkAction<void, AppState, null, Action<string>> => async (dispatch, getState) => {
+    try {
+      const state = getState()
+      const response = await axios
+        .put(`/api/user/edit/email-notifications`,
+          state.user.token,
+          tokenAuth(state.user.token))
+          
+      dispatch(
+        editUserEmailNotifications(response.data.allowEmailNotifications)
+      )
+    } catch (error) {
+      console.log(error)
+    }
   }

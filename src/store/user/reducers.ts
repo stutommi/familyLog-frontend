@@ -3,7 +3,8 @@ import {
   UserActionTypes,
   User,
   LOGIN,
-  LOGOUT
+  LOGOUT,
+  EDIT_USER_EMAIL_NOTIFICATIONS
 } from './types'
 
 const initialState: User | null = null
@@ -19,6 +20,11 @@ export const userReducer = (
       }
     case LOGOUT:
       return null
+    case EDIT_USER_EMAIL_NOTIFICATIONS:
+      return {
+        ...state,
+        allowEmailNotifications: action.allowEmailNotifications
+      }
     default:
       return state
   }

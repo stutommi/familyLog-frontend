@@ -26,6 +26,7 @@ const LoginForm = ({ setNotification, thunkLogin, history }: LoginFormProps) => 
 
       window.localStorage.setItem('familylog-user-token', user.token)
       window.localStorage.setItem('familylog-user-username', user.username)
+      window.localStorage.setItem('familylog-user-allowEmailNotifications', user.allowEmailNotifications)
 
       history.push('/logs')
     } catch (error) {
