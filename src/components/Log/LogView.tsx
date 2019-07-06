@@ -40,7 +40,7 @@ const LogView = ({ log }: LogViewProps) => {
       clickedColumn === 'age'
         ?
         setData(data.sort((a: Person, b: Person) =>
-          moment(a.birth).unix() - moment(b.birth).unix()))
+          moment(a.birth.date).unix() - moment(b.birth.date).unix()))
         : setData(_.sortBy(data, [clickedColumn]))
 
 
@@ -52,7 +52,6 @@ const LogView = ({ log }: LogViewProps) => {
   }
 
   if (data === null) {
-    console.log('data', data)
     // @ts-ignore
     return <AddPersonsNotification />
   }
@@ -97,7 +96,7 @@ const LogView = ({ log }: LogViewProps) => {
                       {person.name}
                     </Link>
                   </Table.Cell>
-                  <Table.Cell>{moment().diff(person.birth, 'years')} years</Table.Cell>
+                  <Table.Cell>{moment().diff(person.birth.date, 'years')} years</Table.Cell>
                   <Table.Cell>{person.relation}</Table.Cell>
                 </Table.Row>
               )

@@ -1,8 +1,20 @@
+export interface SpecialEvent {
+  type: string,
+  date: string,
+  notifyByEmail: boolean
+}
+
+export interface Birth {
+  date: string,
+  notifyByEmail: boolean
+}
+
 export interface Person {
+  specialEvents: SpecialEvent[]
   id: string,
   name: string,
   relation: string,
-  birth: Date,
+  birth: Birth,
   relative: boolean,
   likes?: string[],
   dislikes?: string[]

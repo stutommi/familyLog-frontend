@@ -42,7 +42,7 @@ const DislikesSegment = ({ person, thunkEditPerson }: DislikesSegmentProps) => {
       inverted
       secondary
       color='yellow'>
-      Dislikes...
+      <h3>Dislikes</h3>
 
             {person.dislikes === undefined
         ? <p>No info</p>

@@ -7,7 +7,7 @@ interface RegSuccessModal {
   setShowModal: Function
 }
 
-const RegSuccessModal = ({showModal, setShowModal}: RegSuccessModal) => {
+const RegSuccessModal = ({ showModal, setShowModal }: RegSuccessModal) => {
   return (
     <Modal
       centered
@@ -19,6 +19,7 @@ const RegSuccessModal = ({showModal, setShowModal}: RegSuccessModal) => {
       <Icon name='mail' size='massive' />
       <Header content='Register Succesful!' />
       <Header content='Verify account from a link in your email' />
+      <p> NOTE: mail is most likely in junk folder of your email! </p>
       <Button onClick={() => setShowModal(false)}>ok</Button>
     </Modal>
   )

@@ -3,7 +3,7 @@
 // Libraries
 import * as React from 'react'
 import { useState } from 'react'
-import { Segment, Input, Button, Icon, Sidebar, Grid } from 'semantic-ui-react'
+import { Segment, Input, Button, Icon } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 // Components
 import PersonInfoUnit from './PersonInfoUnit'
@@ -44,7 +44,7 @@ const LikesSegment = ({ person, thunkEditPerson }: LikesSegmentProps) => {
       inverted
       secondary
       color='green'>
-      likes...
+      <h3>Likes</h3>
 
             {person.likes === undefined
         ? <p>No info</p>
