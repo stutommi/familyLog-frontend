@@ -8,7 +8,6 @@ import RegisterForm from './RegisterForm'
 // Hooks
 import { useNotification } from '../../hooks/useNotification'
 
-
 const LoginView = () => {
   const [notification, setNotification] = useNotification()
   const [loginVisible, setLoginVisible] = useState(true)
@@ -52,7 +51,6 @@ const LoginView = () => {
               />
           }
 
-
           {notification &&
             <Message
               positive={notification === 'Register succesful'}
@@ -60,6 +58,7 @@ const LoginView = () => {
               {notification}
             </Message>
           }
+
         </Grid.Column>
       </Grid>
     </div>

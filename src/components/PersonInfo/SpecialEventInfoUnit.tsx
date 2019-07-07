@@ -12,7 +12,7 @@ import { Person, SpecialEvent } from '../../store/logs/types'
 interface SpecialEventInfoUnitProps {
   specialEvent: SpecialEvent
   person: Person,
-  thunkEditPerson: Function
+  thunkEditPerson: (id: string, updatedPerson: Person) => void
 }
 
 const SpecialEventInfoUnit = (

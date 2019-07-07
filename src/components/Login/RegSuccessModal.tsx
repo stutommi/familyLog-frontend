@@ -4,7 +4,7 @@ import { Modal, Button, Icon, Menu, Header } from 'semantic-ui-react'
 
 interface RegSuccessModal {
   showModal: boolean,
-  setShowModal: Function
+  setShowModal: (bool: boolean) => void
 }
 
 const RegSuccessModal = ({ showModal, setShowModal }: RegSuccessModal) => {
@@ -24,6 +24,5 @@ const RegSuccessModal = ({ showModal, setShowModal }: RegSuccessModal) => {
     </Modal>
   )
 }
-
 
 export default RegSuccessModal

@@ -9,8 +9,8 @@ import { useField } from '../../hooks/useField'
 import RegSuccessModal from './RegSuccessModal'
 
 interface RegisterFormProps {
-  setNotification: Function
-  setLoginVisible: Function
+  setNotification: (text: string) => void
+  setLoginVisible: (bool: boolean) => void
 }
 
 const RegisterForm = ({ setNotification, setLoginVisible }: RegisterFormProps) => {
@@ -29,7 +29,6 @@ const RegisterForm = ({ setNotification, setLoginVisible }: RegisterFormProps) =
       }
 
       const response = await axios.post(`/api/register`, registerInformation)
-      console.log('response', response)
 
       setShowModal(true)
       setNotification('Register succesful')
@@ -38,7 +37,7 @@ const RegisterForm = ({ setNotification, setLoginVisible }: RegisterFormProps) =
       email.reset()
       password.reset()
     } catch (error) {
-      console.log(error.response.data)
+      console.error(error.response.data)
       setNotification(error.response.data.error)
     }
   }

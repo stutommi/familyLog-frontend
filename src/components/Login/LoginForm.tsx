@@ -6,13 +6,13 @@ import { Redirect, withRouter } from 'react-router-dom'
 // Custom hooks
 import { useField } from '../../hooks/useField'
 // Types
-
+import { User } from '../../store/user/types'
 // Redux actions
 import { thunkLogin } from '../../thunks'
 
 interface LoginFormProps {
-  setNotification: Function,
-  thunkLogin: Function,
+  setNotification: (text: string) => void,
+  thunkLogin: (password: string, email: string) => User,
   history: any
 }
 
@@ -26,7 +26,7 @@ const LoginForm = ({ setNotification, thunkLogin, history }: LoginFormProps) => 
 
       window.localStorage.setItem('familylog-user-token', user.token)
       window.localStorage.setItem('familylog-user-username', user.username)
-      window.localStorage.setItem('familylog-user-allowEmailNotifications', user.allowEmailNotifications)
+      window.localStorage.setItem('familylog-user-allowEmailNotifications', `${user.allowEmailNotifications}`)
 
       history.push('/logs')
     } catch (error) {

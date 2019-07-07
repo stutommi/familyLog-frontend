@@ -10,7 +10,6 @@ interface IAddPersonsNotification {
 const AddPersonsNotification = (props: IAddPersonsNotification) => {
   return (
 
-
     <Segment
       color='grey'
       inverted
@@ -31,7 +30,6 @@ const AddPersonsNotification = (props: IAddPersonsNotification) => {
         Add person
       </Button>
     </Segment>
-
 
   )
 }

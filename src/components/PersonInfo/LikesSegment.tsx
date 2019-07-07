@@ -1,4 +1,4 @@
-// Hideous duplicate of DislikesSegment.. 
+// Hideous duplicate of DislikesSegment..
 
 // Libraries
 import * as React from 'react'
@@ -16,7 +16,7 @@ import { Person } from '../../store/logs/types'
 
 interface LikesSegmentProps {
   person: Person,
-  thunkEditPerson: Function
+  thunkEditPerson: (id: string, updatedPerson: Person) => void
 }
 
 const LikesSegment = ({ person, thunkEditPerson }: LikesSegmentProps) => {
@@ -46,12 +46,12 @@ const LikesSegment = ({ person, thunkEditPerson }: LikesSegmentProps) => {
       color='green'>
       <h3>Likes</h3>
 
-            {person.likes === undefined
+      {person.likes === undefined
         ? <p>No info</p>
         :
         <Segment.Group>
-          {person.likes.map(like =>
-            <PersonInfoUnit person={person} key={like} like={like} />
+          {person.likes.map(l =>
+            <PersonInfoUnit person={person} key={l} like={l} />
           )}
         </Segment.Group>
       }
@@ -73,6 +73,5 @@ const LikesSegment = ({ person, thunkEditPerson }: LikesSegmentProps) => {
     </Segment>
   )
 }
-
 
 export default connect(null, { thunkEditPerson })(LikesSegment)

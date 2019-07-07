@@ -14,7 +14,7 @@ import { Person } from '../../store/logs/types'
 
 interface DislikesSegmentProps {
   person: Person,
-  thunkEditPerson: Function
+  thunkEditPerson: (id: string, updatedPerson: Person) => void
 }
 
 const DislikesSegment = ({ person, thunkEditPerson }: DislikesSegmentProps) => {
@@ -24,7 +24,7 @@ const DislikesSegment = ({ person, thunkEditPerson }: DislikesSegmentProps) => {
   // Add dislike
   const handleAddDislike = (): void => {
     const updatedDislikes: string[] = [...person.dislikes, dislike.attributes.value]
-    console.log('updatedDislikes', updatedDislikes)
+
     const updatedPerson: Person = {
       ...person,
       dislikes: updatedDislikes
@@ -48,8 +48,8 @@ const DislikesSegment = ({ person, thunkEditPerson }: DislikesSegmentProps) => {
         ? <p>No info</p>
         :
         <Segment.Group>
-          {person.dislikes.map(dislike =>
-           <PersonInfoUnit person={person} key={dislike} dislike={dislike} />
+          {person.dislikes.map(d =>
+           <PersonInfoUnit person={person} key={d} dislike={d} />
           )}
         </Segment.Group>
       }
@@ -71,6 +71,5 @@ const DislikesSegment = ({ person, thunkEditPerson }: DislikesSegmentProps) => {
     </Segment>
   )
 }
-
 
 export default connect(null, { thunkEditPerson })(DislikesSegment)

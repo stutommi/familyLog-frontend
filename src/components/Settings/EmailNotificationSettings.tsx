@@ -9,7 +9,7 @@ import { AppState } from '../../store'
 import { thunkEditUserEmailNotifications } from '../../thunks'
 
 interface EmailNotificationSettingsProps {
-  thunkEditUserEmailNotifications: Function
+  thunkEditUserEmailNotifications: () => void
   user: User
 }
 

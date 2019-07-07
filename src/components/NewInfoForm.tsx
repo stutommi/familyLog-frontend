@@ -3,22 +3,23 @@ import * as React from 'react'
 import { useState } from 'react'
 import { connect } from 'react-redux'
 import { Radio, Form, Grid, Segment, Header } from 'semantic-ui-react'
-import * as moment from 'moment'
 // Hooks
 import { useField } from '../hooks/useField'
 // Redux actions
 import { thunkNewPerson } from '../thunks'
-// Types
 
-moment.updateLocale('en', {
-  relativeTime: {
-  }
-})
-
-interface NewInfoFormProps {
-  thunkNewPerson: Function
+interface ThunkNewPersonArgs {
+  name: string,
+  birth: object,
+  relation: string,
+  relative: boolean
 }
 
+interface NewInfoFormProps {
+  thunkNewPerson: (
+    object: ThunkNewPersonArgs
+  ) => void
+}
 
 const NewInfoForm = (props: NewInfoFormProps) => {
   const name = useField('text', 'Name', 'Name')
@@ -38,7 +39,7 @@ const NewInfoForm = (props: NewInfoFormProps) => {
             notifyByEmail: true
           },
           relation: relation.attributes.value,
-          relative: relative,
+          relative,
         }
       )
 
@@ -55,7 +56,11 @@ const NewInfoForm = (props: NewInfoFormProps) => {
     <Grid
       textAlign='center'
       verticalAlign='middle'
-      style={{ height: '100%', background: 'lightpink' }}
+      style={{
+        height: '100%',
+        background: 'lightpink',
+        margin: 0
+      }}
     >
       <Grid.Column style={{ maxWidth: 250 }}>
         <Header>Add a person to log</Header>

@@ -43,7 +43,6 @@ const LogView = ({ log }: LogViewProps) => {
           moment(a.birth.date).unix() - moment(b.birth.date).unix()))
         : setData(_.sortBy(data, [clickedColumn]))
 
-
       return
     }
 
@@ -63,7 +62,7 @@ const LogView = ({ log }: LogViewProps) => {
   return (
     <Grid
       style={{ background: 'violet', height: '100%' }}>
-      <Grid.Column >
+      <Grid.Column style={{paddingBottom: 0}}>
         <Table unstackable sortable celled fixed>
           <Table.Header>
             <Table.Row>

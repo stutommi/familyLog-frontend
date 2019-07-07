@@ -11,7 +11,7 @@ export interface ResponsiveLayoutProps {
 }
 
 const ResponsiveLayout = (props: ResponsiveLayoutProps) => {
-  
+
   if (!props.loggedIn) {
     return <Redirect to='/login' />
   }

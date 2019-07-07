@@ -8,8 +8,6 @@ import { login, logout, editUserEmailNotifications } from './store/user/actions'
 // Types
 import { AppState } from './store'
 import { Person } from './store/logs/types'
-import { User } from './store/user/types'
-
 
 const tokenAuth = (token: string) => {
   return {
@@ -88,8 +86,10 @@ export const thunkLogin = (
 
 export const thunkDeleteUser = ():
   ThunkAction<void, AppState, null, Action<string>> => async (dispatch, getState) => {
-    const username = getState().user.username
-    const response = await axios.post(`/api/user/delete`, { username })
+    const user = getState().user
+    const response = await axios.post(
+      `/api/user/delete`, { username: user.username }, tokenAuth(user.token)
+    )
     dispatch(
       logout()
     )
@@ -106,7 +106,7 @@ export const thunkEditUserEmailNotifications = ():
         .put(`/api/user/edit/email-notifications`,
           state.user.token,
           tokenAuth(state.user.token))
-          
+
       dispatch(
         editUserEmailNotifications(response.data.allowEmailNotifications)
       )

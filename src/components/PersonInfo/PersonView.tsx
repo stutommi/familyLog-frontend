@@ -1,7 +1,7 @@
 // Libraries
 import * as React from 'react'
 import * as moment from 'moment'
-import { Grid, Segment, Header, Icon, Table, Button } from 'semantic-ui-react'
+import { Grid, Header, Table, Button } from 'semantic-ui-react'
 import { Redirect, withRouter } from 'react-router'
 import { connect } from 'react-redux'
 // Types
@@ -11,9 +11,9 @@ import PersonInfoTableRow from './PersonInfoTableRow'
 import DislikesSegment from './DislikesSegment'
 import LikesSegment from './LikesSegment'
 import SpecialEventsSegment from './SpecialEventsSegment'
+import BdayNotifSidebar from './BdayNotifSidebar'
 // Redux actions
 import { thunkDeletePerson } from '../../thunks'
-
 
 interface PersonViewProps {
   person: Person,
@@ -59,23 +59,26 @@ const PersonView = ({ person, thunkDeletePerson }: PersonViewProps) => {
       </Grid.Row>
       <Grid.Row>
         <Grid.Column>
-          <Table unstackable>
-            <Table.Body>
-              <PersonInfoTableRow
-                label='Age'
-                data={moment().diff(person.birth.date, "year")}
-              />
-              <PersonInfoTableRow
-                label='Relation'
-                data={person.relation}
-              />
-              <PersonInfoTableRow
-                label='Birth'
-                data={moment(person.birth.date).format('DD.MM.YYYY')}
-              />
+          <BdayNotifSidebar person={person}>
+            <Table unstackable>
+              <Table.Body>
 
-            </Table.Body>
-          </Table>
+                <PersonInfoTableRow
+                  label='Age'
+                  data={moment().diff(person.birth.date, 'year')}
+                />
+                <PersonInfoTableRow
+                  label='Relation'
+                  data={person.relation}
+                />
+                <PersonInfoTableRow
+                  label='Birth'
+                  data={moment(person.birth.date).format('DD.MM.YYYY')}
+                />
+
+              </Table.Body>
+            </Table>
+          </BdayNotifSidebar>
         </Grid.Column>
       </Grid.Row>
       <Grid.Row>

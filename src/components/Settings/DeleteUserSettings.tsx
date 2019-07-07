@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { thunkDeleteUser } from '../../thunks'
 
 interface DeleteUserSettingsProps {
-  thunkDeleteUser: Function
+  thunkDeleteUser: () => void
 }
 
 const DeleteUserSettings = (props: DeleteUserSettingsProps) => {

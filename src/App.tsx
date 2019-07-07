@@ -23,7 +23,7 @@ import { AppState } from './store'
 import PrivateRoute from './utils/PrivateRoute'
 
 interface AppProps {
-  thunkInitializeLog: Function,
+  thunkInitializeLog: () => void,
   log: LogState
   user: User
   login: typeof login
@@ -41,7 +41,7 @@ const App = (props: AppProps) => {
     if (token && user && allowEmailNotifications) {
       props.login({
         username: user,
-        token: token,
+        token,
         allowEmailNotifications: JSON.parse(allowEmailNotifications)
       })
 

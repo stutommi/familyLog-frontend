@@ -12,7 +12,7 @@ interface PersonInfoUnitProps {
   like?: string
   dislike?: string,
   person: Person,
-  thunkEditPerson: Function
+  thunkEditPerson: (id: string, updatedPerson: Person) => void
 }
 
 const PersonInfoUnit = ({ dislike, person, thunkEditPerson, like }: PersonInfoUnitProps) => {

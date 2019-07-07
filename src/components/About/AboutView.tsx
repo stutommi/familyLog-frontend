@@ -20,7 +20,6 @@ const AboutView = () => {
         of people close to you.
       </p>
 
-
       <h3 style={headerStyle}>Features:</h3>
       <ul>
         <li>Possibility to keep log of relatives ages and birthdays in the same place</li>

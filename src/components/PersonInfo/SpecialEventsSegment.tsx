@@ -14,7 +14,7 @@ import { Person, SpecialEvent } from '../../store/logs/types'
 
 interface SpecialEventsTable {
   person: Person,
-  thunkEditPerson: Function
+  thunkEditPerson: (id: string, updatedPerson: Person) => void
 }
 
 const SpecialEventsTable = ({ person, thunkEditPerson }: SpecialEventsTable) => {
@@ -92,6 +92,5 @@ const SpecialEventsTable = ({ person, thunkEditPerson }: SpecialEventsTable) => 
     </Segment>
   )
 }
-
 
 export default connect(null, { thunkEditPerson })(SpecialEventsTable)

@@ -8,7 +8,7 @@ export const useNotification = (duration: number = 5) => {
 
   const reset = (): void => setText(null)
 
-  const set = (text: string) => {
+  const set = (textInput: string) => {
     if (notificationVisible) {
       clearTimeout(timeoutId)
       setNotificationVisible(false)
@@ -16,11 +16,11 @@ export const useNotification = (duration: number = 5) => {
     }
 
     setNotificationVisible(true)
-    setText(text)
+    setText(textInput)
 
-    let id = setTimeout(() => {
+    const id = setTimeout(() => {
       reset()
-      
+
     }, duration * 1000)
     setTimeoutId(id)
   }
