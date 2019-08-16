@@ -7,7 +7,8 @@
     "build": "webpack --mode=production",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "tslint --fix -c tslint.json './**/*.ts?(x)'",
-    "start": "webpack-dev-server --mode=development",
+    "start": "webpack --mode production && serve -s -l 3000 build",
+    "dev": "webpack-dev-server --mode=development",
     "server": "json-server -p3005 db.json"
   },
   "repository": {
@@ -50,6 +51,7 @@
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "semantic-ui-react": "^0.87.2"
+    "semantic-ui-react": "^0.87.2",
+    "serve": "^11.1.0"
   }
 }
