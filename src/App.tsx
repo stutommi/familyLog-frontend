@@ -99,7 +99,7 @@ const App = (props: AppProps) => {
                 <PrivateRoute // LOGS
                   loggedIn={loggedIn}
                   exact
-                  path='/logs'
+                  path='/(|logs)/'
                   component={LogView} />
 
                 <PrivateRoute // PERSON VIEW

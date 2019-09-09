@@ -17,7 +17,7 @@ const AddPersonsNotification = (props: IAddPersonsNotification) => {
       textAlign='center'
       style={{ height: '100%' }}
     >
-      <h1 style={{ marginTop: '40%' }}>
+      <h1 style={{ marginTop: '10%' }}>
         No logs yet
       </h1>
       <Icon name='meh' size='massive' />

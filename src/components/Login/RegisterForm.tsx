@@ -28,7 +28,7 @@ const RegisterForm = ({ setNotification, setLoginVisible }: RegisterFormProps) =
         username: username.attributes.value
       }
 
-      const response = await axios.post(`/api/register`, registerInformation)
+      const response = await axios.post(`/api/user/register`, registerInformation)
 
       setShowModal(true)
       setNotification('Register succesful')
