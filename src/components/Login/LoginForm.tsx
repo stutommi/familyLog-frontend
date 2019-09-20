@@ -2,7 +2,7 @@
 import * as React from 'react'
 import { Button, Form, Segment } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { Redirect, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 // Custom hooks
 import { useField } from '../../hooks/useField'
 // Types

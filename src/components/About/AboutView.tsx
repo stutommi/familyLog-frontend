@@ -28,9 +28,10 @@ const AboutView = () => {
       </ul>
 
       <h3 style={headerStyle}>Email notifications:</h3>
-      <p>Email notifications can be switched off from the settings menu or individually from persons private view in logs.
-        To switch emails notifications on and off individually for birthdays, click at the "birth" information row in persons private view.
-        You can do the same for special event notifications by clicking the event inside persons private view.
+      <p>Email notifications can be switched off from the settings menu or individually from persons private view in
+        logs. To switch emails notifications on and off individually for birthdays, click at the "birth" information
+        row in persons private view. You can do the same for special event notifications by clicking the event inside
+        persons private view.
       </p>
 
       <Segment style={{ background: 'lightgreen' }}>
